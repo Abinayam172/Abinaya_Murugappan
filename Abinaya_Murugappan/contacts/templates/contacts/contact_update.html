@@ -1,0 +1,123 @@
+<!-- contacts/templates/contacts/contact_update.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Contact</title>
+    <style>
+        body {
+            background-color: black;
+            font-family: 'Times New Roman';
+            color: white;
+        }
+        .heading {
+            margin-top: 20px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: xx-large;
+            height: 18vh;
+            border-bottom: 1px solid white;
+        }
+        
+        .form-container {
+            margin-left: 35%;
+            font-size: large;
+            width: 30%; /* Adjust the percentage as needed */
+        }
+
+        .error {
+            margin: 0;
+            margin-left: 0;
+            padding: 0;
+            font-size: small;
+            align-content: left;
+            color: red;
+        }
+        .buttons {
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .btn-submit {
+            background-color: rgb(154, 8, 8);
+        }
+        
+        .btn-cancel {
+            background-color: rgb(172, 125, 8);
+        }
+
+        footer {
+            color: green;
+            font-size: x-large;
+            margin-left: 70%;
+            padding: 10px;
+            bottom: 0;
+            position: absolute;
+            text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class = "heading">
+    <h1><strong>Update Contact</strong></h1>
+</div>
+<hr>
+
+<div class="form-container">
+<form method="post" action="{% url 'contact_update' contact.id %}">
+    {% csrf_token %}
+    <div class = "form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control form-control-sm" id="name" name="name" value="{{ contact.name }}" required>
+    </div>
+    <div class="error">
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'name_error' in message.tags %}
+                    {{ message }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control form-control-sm" id="email" name="email" value="{{ contact.email }}" required>
+    </div>
+    <div class="error">
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'validemail_error' in message.tags %}
+                    {{ message }}
+                {% elif 'email_error' in message.tags %}
+                    {{ message }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="notes">Notes:</label>
+        <textarea class="form-control form-control-sm" id="notes" name="notes" rows="4" value="{{ contact.notes }}"></textarea>
+    </div>
+    <div class = "buttons">
+        <button type="submit" class="btn btn-primary btn-submit btn-md"><strong>Submit</strong></button>
+        <a href="{% url 'contacts_list'%}">
+            <button type="button" class="btn btn-primary btn-cancel btn-md"><strong>Cancel</strong></button>
+        </a>
+    </div>
+</form>
+</div>
+
+</body>
+
+<footer>
+    <p>&copy; Created by Abinaya Murugappan </p>
+</footer>
+
+</html>

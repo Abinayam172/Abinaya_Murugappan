@@ -37,5 +37,32 @@ def contact_details(request, contact_id):
     contact = Contact.objects.get(pk=contact_id)
     return render(request, "contacts/contact_detail.html", {"contact": contact})
 
+def contact_update(request, contact_id):
+    contact = get_object_or_404(Contact, pk=contact_id)
+    if request.method == 'POST':
+        name=request.POST['name']
+        email = request.POST.get('email')
+        check_contacts = Contact.objects.exclude(id=contact_id)
+        if not validate_email(email):
+            # Add an error message for invalid email format
+            messages.error(request, f"Enter a valid email address", extra_tags='validemail_error')
+        if check_contacts.filter(name=name).exists():
+            # Add an error message using Django's messages framework
+            messages.error(request, f"Contact with this name already exists in other contacts", extra_tags='name_error')
+        if check_contacts.filter(email=email).exists():
+            # Add an error message for email using Django's messages framework
+            messages.error(request, f"Contact with this email already exists in other contacts", extra_tags='email_error')
+        if messages.get_messages(request):
+            return redirect('contact_update', contact_id=contact_id)
+        else:
+            contact.name = request.POST['name']
+            contact.email = request.POST['email']
+            contact.notes = request.POST['notes']
+            contact.save()
+        return redirect('contacts_list')
+    return render(request, 'contacts/contact_update.html', {'contact': contact})
+
+
+
 
 
