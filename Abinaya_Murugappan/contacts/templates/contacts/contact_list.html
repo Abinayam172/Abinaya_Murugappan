@@ -1,0 +1,147 @@
+<!-- contacts/templates/contacts/contact_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Contact List</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        .heading {
+            height: 15vh;
+            padding: 10px;
+            text-align: center;
+            font-size: x-large;
+        }
+
+        .create-btn-div {
+            padding: 10px;
+            margin-left: 500px;
+        }
+
+        .create-button {
+            background-color: rgb(207, 107, 13);
+        }
+
+        .create-button-txt {
+            font-size: large;
+        }
+        
+        .icon {
+            font-size: 15px; /* Set the font size */
+            color: black
+        }
+
+        .edit-button {
+            background-color: rgb(13, 207, 104);
+        }
+
+        .delete-button {
+            background-color: lightskyblue;
+        }
+
+        .table {
+              padding: 10px;
+              text-align: left;
+              align-items: center;
+              color: antiquewhite;
+              margin-left: 15%;
+              font-size: large;
+        }
+
+        table {
+            width: 90%
+        }
+
+        th {
+            border-top: 2px solid  whitesmoke;
+            border-bottom: 2px solid whitesmoke;
+        }
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 30%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 40%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 30%;
+        }
+
+        footer {
+            color: green;
+            font-size: x-large;
+            margin-left: 70%;
+            padding: 10px;
+            bottom: 0;
+            position: absolute;
+            text-align: right;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class = "heading">
+    <h1>Contact Management</h1>
+</div>
+<hr>
+
+<div class="create-btn-div">
+    <a href="{% url 'contact_create'%}">
+        <button type="button" class="create-button">
+            <p class="create-button-txt">Create a New Contact</p>
+        </button>
+    </a>
+</div>
+    
+<div class = "table">
+    <table>
+        <thead>
+            <tr>
+                <th>Contact Name</th>
+                <th>Email</th>
+                <th>Created Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td>
+                        <a href="{% url 'contact_details' contact.id %}">
+                            <button type="button" class="edit-button">
+                                <i class="material-icons icon edit-icon">edit</i>
+                            </button>
+                        </a>
+                        <a href="{% url 'contact_delete' contact.id %}">
+                            <button type="button" class="delete-button">
+                                <i class="material-icons icon delete-icon">delete</i>
+                            </button>
+                        </a>
+                        {{ contact.name }}
+                    </td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.created_time }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+
+<footer>
+    <p>&copy; Created by Abinaya Murugappan </p>
+</footer>
+
+</html>
