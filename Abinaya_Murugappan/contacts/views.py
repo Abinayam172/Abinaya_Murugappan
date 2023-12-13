@@ -62,6 +62,13 @@ def contact_update(request, contact_id):
         return redirect('contacts_list')
     return render(request, 'contacts/contact_update.html', {'contact': contact})
 
+def contact_delete(request, contact_id):
+    contact = get_object_or_404(Contact, pk=contact_id)
+    if request.method == 'POST':
+        contact.delete()
+        return redirect('contacts_list')
+    return render(request, 'contacts/contact_delete.html', {'contact': contact})
+
 
 
 

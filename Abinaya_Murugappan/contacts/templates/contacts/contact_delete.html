@@ -1,0 +1,109 @@
+<!-- contacts/templates/contacts/contact_delete.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Delete</title>
+    <style>
+        body {
+            font-family: 'Times New Roman';
+            background-color: black;
+            color: white;
+        }
+
+        .heading {
+            font-family: 'Times New Roman';
+            margin-top: 20px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: x-large;
+            height: 18vh;
+            border-bottom: 1px solid white;
+        }
+
+        .shadow-box {
+            width: 300px;
+            padding: 20px;
+            margin: 50px auto;
+            background-color: #91802d;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .box-content {
+            font-size: large;
+            text-align: center; /* Center-align content in cells */
+            vertical-align: top; /* Align content to the top of cells */
+        }
+
+        .buttons {
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .btn-delete {
+            background-color: rgb(154, 8, 8);
+        }
+        
+        .btn-cancel {
+            background-color: rgb(172, 125, 8);
+        }
+
+        .name{
+            color: rgb(106, 49, 8);
+            font-weight: 600;
+            font-size: large;
+        }
+
+        .text{
+            color: rgb(106, 49, 8);
+            font-weight: 600;
+        }
+
+        footer {
+            color: green;
+            font-size: x-large;
+            margin-left: 70%;
+            padding: 10px;
+            bottom: 0;
+            position: absolute;
+            text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class = "heading">
+    <h1><strong>Confirm Delete</strong></h1>
+</div>
+<hr>
+
+<div class="shadow-box">
+    <div class="box-content">
+        <form method="post" action="{% url 'contact_delete' contact.id %}">
+        {% csrf_token %}
+           <p class="text">Are you sure you want to delete contact <span class="name">"{{ contact.name }}"</span>?</p>
+           <div class = "buttons">
+                <button type="submit" class="btn btn-primary btn-delete btn-md"><strong>Delete</strong></button>
+                <a href="{% url 'contacts_list'%}">
+                    <button type="button" class="btn btn-primary btn-cancel btn-md"><strong>Cancel</strong></button>
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
+    
+</body>
+
+<footer>
+    <p>&copy; Created by Abinaya Murugappan </p>
+</footer>
+
+</html>
