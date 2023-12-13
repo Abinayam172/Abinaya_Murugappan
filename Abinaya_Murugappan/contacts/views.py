@@ -33,5 +33,9 @@ def contact_create(request):
             return redirect('contacts_list')
     return render(request, 'contacts/contact_create.html')
 
+def contact_details(request, contact_id):
+    contact = Contact.objects.get(pk=contact_id)
+    return render(request, "contacts/contact_detail.html", {"contact": contact})
+
 
 
